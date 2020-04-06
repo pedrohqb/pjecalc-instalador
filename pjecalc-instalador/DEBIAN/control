@@ -1,10 +1,10 @@
 Package: pjecalc-instalador
-Version: 1.0.0-1big2
+Version: 1.0.0-1big3
 Depends: kdialog, konsole, openjdk-7-jre
 Architecture: all
 Maintainer: Bruno Goncalves < www.biglinux.com.br >
 Section: admin
 Priority: optional
 Installed-Size:40
-Description: Esse é um instaldor não oficial para o PjeOffice, que permite utiliza-lo no Linux
+Description: Esse é um instaldor não oficial para o PjeCalc, que permite utiliza-lo no Linux
 
