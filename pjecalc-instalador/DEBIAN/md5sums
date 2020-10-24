@@ -1,5 +1,5 @@
 d41d8cd98f00b204e9800998ecf8427e  DEBIAN/md5sums
-17d38704ba8741cdd613635de7975cd1  DEBIAN/control
+4ed2f06787aaeeae0dd814ce4c7fcebe  DEBIAN/control
 0109aa636ff4fb36f8e916beeb48564f  usr/share/applications/pjecalc-instalar-remover.desktop
 2f2823ba7586ba61d9c01f14fb16ceb1  usr/share/applications/pjecalc.desktop
 5e2f9f697da6d4af29f07fe72031127a  usr/share/pixmaps/icone_calc.ico
