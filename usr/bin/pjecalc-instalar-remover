@@ -60,12 +60,12 @@ fi
 
 cd "$HOME/.pjecalc-instalando/"
 
-unrar x pjecalc.exe
+7z x pjecalc.exe
 
 rm pjecalc.exe
 
 rm -Rf pjecalc-*/navegador
-rm -Rf pjecalc-*/bin/jre7-windows
+rm -Rf pjecalc-*/bin/jre
 
 mkdir -p ~/PjeCalc
 

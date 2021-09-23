@@ -6,16 +6,13 @@ if ! [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
     kdialog --msgbox $"O PjeCalc ainda não está instalado.
     
     " --title "PjeOffice não instaldo!"
-
-
-    
 fi
 
 cd "$HOME/PjeCalc/"
 
 if [ "$(ps -aux | grep -i pjecalc.jar | grep java)" = "" ]; then
 echo "sim"
-	exec /usr/lib/jvm/java-1.7.0-openjdk-amd64/bin/java -Duser.timezone=GMT-3 -Dfile.encoding=ISO-8859-1 -Dseguranca.pjecalc.tokenServicos=pW4jZ4g9VM5MCy6FnB5pEfQe -Xms1024m -Xmx2048m -XX:MaxPermSize=512m -jar bin/pjecalc.jar &
+	exec java -Duser.timezone=GMT-3 -Dfile.encoding=ISO-8859-1 -Dseguranca.pjecalc.tokenServicos=pW4jZ4g9VM5MCy6FnB5pEfQe -Xms1024m -Xmx2048m -XX:MaxPermSize=512m -jar bin/pjecalc.jar &
 fi
 
 
