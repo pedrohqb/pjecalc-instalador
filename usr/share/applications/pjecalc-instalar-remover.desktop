@@ -228,7 +228,8 @@ Keywords[zh_TW]=;;;;;
 # Icon=vcs-added
 
 # Icon=/usr/share/pixmaps/icone_calc.ico
-Icon=/usr/share/pixmaps/pjecalc.png
+# Icon=/usr/share/pixmaps/pjecalc.png
+Icon=pjecalc
 
 
 # Tenta encontrar um terminal em ordem de preferência.

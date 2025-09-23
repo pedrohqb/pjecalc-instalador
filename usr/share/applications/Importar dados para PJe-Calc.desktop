@@ -53,6 +53,7 @@ Keywords[fr]=PJe-Calc;importer;données;justice;travail;
 Exec=brave-browser http://localhost:9257/pjecalc/pages/principal.jsf
     
 Icon=web-browser
+
 Terminal=false
 Categories=Network;WebBrowser;
 

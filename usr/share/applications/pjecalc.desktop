@@ -208,7 +208,9 @@ Keywords[zh_TW]=計算機;勞動;司法;PJe;清算;計算;
 
 
 # Icon=/usr/share/pixmaps/icone_calc.ico
-Icon=/usr/share/pixmaps/pjecalc.png
+# Icon=/usr/share/pixmaps/pjecalc.png
+Icon=pjecalc
+
 
 Exec=/usr/local/bin/pjecalc-abrir.sh
 

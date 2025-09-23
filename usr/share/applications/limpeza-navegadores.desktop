@@ -3,7 +3,10 @@ Type=Application
 Name=Limpar Navegadores
 Comment=Remove os dados de navegação de vários navegadores.
 Exec=/usr/local/bin/limpar-navegador.sh
-Icon=/usr/share/pixmaps/limpar-navegadores.svg
+
+# Icon=/usr/share/pixmaps/limpar-navegadores.svg
+Icon=limpar-navegadores
+
 Terminal=false
 Categories=Utility;
 

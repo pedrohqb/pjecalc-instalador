@@ -159,7 +159,10 @@ Comment[zh_TW]=
 
 
 Exec=xdg-open "https://pje.csjt.jus.br/manual/index.php/PJE-Calc"
-Icon=/usr/share/pixmaps/Manual_do_PJe.png
+
+# Icon=/usr/share/pixmaps/Manual_do_PJe.png
+Icon=Manual_do_PJe
+
 Path=
 Categories=GNOME;GTK;Network;WebBrowser;
 Terminal=false
@@ -223,3 +226,4 @@ Actions=SoftwareRender;
 [Desktop Action SoftwareRender]
 Name=Software Render
 Exec=SoftwareRender xdg-open "https://pje.csjt.jus.br/manual/index.php/PJE-Calc"
+
