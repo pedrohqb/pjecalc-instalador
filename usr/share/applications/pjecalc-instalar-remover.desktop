@@ -1,20 +1,3 @@
-
-# O PJe-Calc é o Sistema de Cálculo Trabalhista desenvolvido pela Secretaria de Tecnologia 
-# da Informação do Tribunal Regional do Trabalho da 8ª Região, a pedido do Conselho Superior 
-# da Justiça do Trabalho, para utilização em toda a Justiça do Trabalho como ferramenta padrão 
-# de elaboração de cálculos trabalhistas e liquidação de sentenças, visando a uniformidade 
-# de procedimentos e confiabilidade nos resultados apurados, sendo indicado pela Recomendação 
-# CGJT nº 4/2018.
-
-# Na intenção de ampliar o uso da ferramenta, foi desenvolvido o PJe-Calc Cidadão, versão 
-# desktop do PJe-Calc, que funciona sem necessidade de conexão com a Internet. Esta versão 
-# é direcionada a advogados, peritos e ao público em geral, e conta com as mesmas funcionalidades 
-# da versão utilizada nos Tribunais do Trabalho, o que garante a padronização na elaboração 
-# de cálculos trabalhistas a serem apresentados em processos.
-
-# https://www.trt8.jus.br/pjecalc-cidadao
-
-
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -69,7 +52,6 @@ Name[vi]=
 Name[zh_CN]=
 Name[zh_TW]=
 
-
 GenericName=Install or remove PJeCalc Cidadão
 GenericName[ar]=
 GenericName[bg]=
@@ -120,8 +102,6 @@ GenericName[sk]=
 GenericName[sr]=
 GenericName[te]=
 GenericName[vi]=
-
-
 
 Comment=This unofficial installer allows you to extract and run PjeCalc on Linux.
 Comment[ar]=
@@ -174,9 +154,6 @@ Comment[zh_CN]=
 Comment[zh_HK]=
 Comment[zh_TW]=
 
-
-
-
 Keywords=instalador;PjeCalc;Linux;extrair;executar;correr;justiça;trabalho;download;
 Keywords[pt_PT]=instalador;PjeCalc;Linux;extrair;correr;justiça;trabalho;baixar;
 Keywords[pt_BR]=instalador;PjeCalc;Linux;extrair;executar;justiça;trabalhista;
@@ -223,17 +200,9 @@ Keywords[vi]=;;;;;
 Keywords[zh_CN]=安装器;PjeCalc;Linux;提取;运行;司法;劳动;
 Keywords[zh_TW]=;;;;;
 
-
-
-# Icon=vcs-added
-
-# Icon=/usr/share/pixmaps/icone_calc.ico
-# Icon=/usr/share/pixmaps/pjecalc.png
 Icon=pjecalc
 
-
 # Tenta encontrar um terminal em ordem de preferência.
-
 
 # O que está incluído:
 
@@ -250,23 +219,15 @@ Icon=pjecalc
 # urxvt	rxvt-unicode
 # xterm	Terminal clássico / fallback universal
 
-
 Exec=sh -c 'TERMINAL=$(command -v x-terminal-emulator || command -v gnome-terminal || command -v xfce4-terminal || command -v konsole || command -v xterm || command -v tilix || command -v terminator || command -v alacritty || command -v lxterminal || command -v mate-terminal || command -v urxvt); exec "$TERMINAL" -e /usr/local/bin/pjecalc-instalar-remover.sh'
-
-
 
 # Aqui define a pasta
 
 Path=
 
-
 Categories=Office;
-
 Terminal=false
 StartupNotify=true
-
-
-
 Actions=SoftwareRender;
 
 [Desktop Action SoftwareRender]
