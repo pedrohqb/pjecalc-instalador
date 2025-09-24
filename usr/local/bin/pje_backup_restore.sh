@@ -5,6 +5,7 @@
 # Homepage: https://github.com/pedrohqb/pjecalc-instalador
 # Licença:  MIT
 
+
 # Caminhos base
 
 PASTA_ORIGEM="$HOME/PjeCalc/.dados"
@@ -14,7 +15,6 @@ ARQUIVO_BACKUP="$HOME/PjeCalc-dados-$DATA_HORA.tar.gz"
 LOGFILE="$HOME/PjeCalc-backup.log"
 MAX_BACKUPS=7
 
-
 # Função de log com data/hora
 
 log() {
@@ -22,7 +22,6 @@ log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOGFILE"
 
 }
-
 
 # Verificação de dependências
 
@@ -37,7 +36,6 @@ verificar_dependencias() {
     fi
 }
 
-
 # Função para limpar backups antigos
 
 limpar_backups_antigos() {
@@ -51,7 +49,6 @@ limpar_backups_antigos() {
         done
     fi
 }
-
 
 # Função de backup
 
@@ -73,7 +70,6 @@ fazer_backup() {
     fi
 }
 
-
 # Função de restauração
 
 restaurar_backup() {
@@ -87,7 +83,6 @@ restaurar_backup() {
         log "❌ ERRO: Nenhum arquivo de backup encontrado em $HOME."
     fi
 }
-
 
 # Execução principal
 
@@ -105,6 +100,5 @@ case "$1" in
         exit 1
         ;;
 esac
-
 
 exit 0
