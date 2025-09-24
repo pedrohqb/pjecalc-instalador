@@ -853,6 +853,7 @@ yad \
 
 if [ $? -eq 0 ]; then
 
+    rm $HOME/pjecalc-$VERSAO-instalador-$arch.exe 2>> "$log" && \
     rm pjecalc.exe 2>> "$log" && \
     yad --center --title="Removido" --window-icon="$logo" --image="$logo" --text="Arquivo <b>pjecalc.exe</b> removido com sucesso!" --buttons-layout="center" --button=OK --width="400" --height="100" 2>/dev/null
 
@@ -1112,4 +1113,3 @@ fi
 
 
 exit 0
-
