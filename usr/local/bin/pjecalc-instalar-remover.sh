@@ -4,92 +4,46 @@
 #
 #   Bruno Goncalves <bigbruno@gmail.com>
 #   Fernando Souza - https://www.youtube.com/@fernandosuporte/
-#
-# Data:     13/04/2025 as 17:36:18
-# Homepage: https://github.com/tuxslack/pjecalc-instalador
-# Licença:  MIT
-#
-#
-#    * Trocado kdialog por yad para maior compatibilidade com outras interfaces gráficas.
-#    * Tenta localizar o Java, utilizando o diretório mais provável.
-#    * Adicionado tratamento de erros.
-#    * Baixa o arquivo .exe (versão para Windows) do PJeCalc atualizado, diretamente do site oficial.
-#
-# 
-# Passo a passo prático da instalação do Pje-Calc Cidadão
-# 
-# Em apenas 4 passos o programa estará pronto pra ser usado:
-# 
-#     Baixar o instalador
-#     Abrir e extrair o arquivo na pasta $HOME
-#     Baixar as tabelas atualizadas
-#     Inserir as tabelas no programa
-# 
-# 
-# 
-# Instalação PJe-Calc
-#
-# https://www.youtube.com/watch?v=GIqSTTuOBwM
-# https://www.trt8.jus.br/pjecalc-cidadao/manuais
-# https://forum.biglinux.com.br/d/2315-pje-calc-no-biglinux
-# https://www.trt8.jus.br/pjecalc-cidadao/manuais
-# https://pje.csjt.jus.br/manual/index.php/PJE-Calc
-# https://www.trt8.jus.br/sites/portal/files/roles/pje-calc/manual_de_instalacao_-_pje-calc_cidadao_-_2.13.1.pdf
-# https://plus.diolinux.com.br/t/dica-pjecalc-no-ubuntu-rodando-nativo-sem-wine-e-nem-virtual-machine/68263/2
-# https://plus.diolinux.com.br/t/pjecalc-no-linux/44014
-# https://manjariando.com.br/pje-calc/
-# https://plus.diolinux.com.br/t/pjecalc-programa-de-calculo-da-justica-do-trabalho/14274
-# https://plus.diolinux.com.br/t/pje-office-no-linux/316
-# https://calculojuridico.com.br/instalar-pje-calc/
-
-
+#   Modificado por Pedro Henrique Quitete Barreto - pedrohqb@gmail.com
+#   Homepage: https://github.com/pedrohqb/pjecalc-instalador
+#   Licença:  MIT
 
 titulo="Instalador não oficial do PJeCalc Cidadão"
-
 
 # Priorizar formato SVG
 
 logo="/usr/share/pixmaps/icone_calc.ico"
 
-
 # URL da página de instalação
 
 URL="https://www.trt8.jus.br/pjecalc-cidadao/instalando-o-pje-calc-cidadao"
 
-
 # Logs de instalação
 
 log="/tmp/pjecalc-instalador.log"
-
 
 # Versões de referência do Java
 
 VERSAO_MINIMA="11.0.25"
 VERSAO_MAXIMA="24.0.1"
 
-
-
 clear
 
-
 rm -Rf "$log" 2>/dev/null
-
 
 echo "=========== $(date '+%d-%m-%Y %H:%M:%S') - Início da instalação do PJeCalc Cidadão ==========" >> "$log"
 
 
 # ----------------------------------------------------------------------------------------
 
+
 # Para verificar se os programas estão instalados
 
-
 which yad           1> /dev/null 2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
-
 
 verificar_programa() {
 
     if ! which "$1" &> /dev/null; then
-
 
         echo  "O programa $1 não está instalado." >> "$log"
 
@@ -105,7 +59,6 @@ verificar_programa() {
     fi
 
 }
-
 
 # Verificações
 
@@ -125,10 +78,8 @@ verificar_programa firefox
 verificar_programa netstat
 
 
-
-# find /usr/share/icons/ -iname *gtk-dialog*
-
 # ----------------------------------------------------------------------------------------
+
 
 # Mensagem sobre o arquivo de log
 
@@ -207,7 +158,6 @@ Testando conexão com à internet...
 
 if ! ping -c 1 www.google.com.br -q &> /dev/null; then
 
-
     echo -e "\nSistema não tem conexão com à internet.\n" >> "$log"
 
     echo -e "\033[1;31m[ERRO] - Seu sistema não tem conexão com à internet. Verifique os cabos e o modem.\n \033[0m"
@@ -225,8 +175,7 @@ if ! ping -c 1 www.google.com.br -q &> /dev/null; then
     --button="OK"  \
     --width="600" --height="100"  \
     2> /dev/null
-    
-    
+        
     exit 1
     
     else
@@ -242,10 +191,11 @@ fi
 
 verificar_internet
 
+
 # ----------------------------------------------------------------------------------------
 
-clear
 
+clear
 
 # Baixar o conteúdo da página e procurar o link do instalador
 
@@ -271,11 +221,9 @@ VERSAO=$(curl -s "$URL" 2> /dev/null | grep -oP 'pjecalc-[0-9]+\.[0-9]+\.[0-9]+(
 
 fi
 
-
 # Para verificar se a variavel é nula
 
 if [ -z "$VERSAO" ];then
-
 
     echo -e "\033[1;31mVersão do PJeCalc Cidadão não identificada...\n \033[0m"
 
@@ -283,16 +231,13 @@ if [ -z "$VERSAO" ];then
 
 fi
 
-
 # Filtrar
 
 VERSAO=$(echo ""$VERSAO | cut -d"-" -f2)
 
-
 # Exibir a versão do programa
 
 echo -e "\nVersão mais recente do PJeCalc Cidadão: $VERSAO \n"
-
 
 echo "
 Versão mais recente do PJeCalc Cidadão: $VERSAO
@@ -306,13 +251,11 @@ Arquitetura do processador: $(uname -m)
 
 " >> "$log"
 
-
 echo "
 Sistema:
 " >> "$log"
 
 cat /etc/os-release  >> "$log"
-
 
 sleep 5
 
@@ -320,9 +263,7 @@ sleep 5
 # ----------------------------------------------------------------------------------------
 
 
-
 if [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
-
 
 yad --center \
     --title="$titulo" \
@@ -333,9 +274,7 @@ yad --center \
     --button="REMOVER o PJeCalc Cidadão!":1 \
     --width="800" --height="200"  2>/dev/null
 
-
     if [ "$?" = 1 ]; then
-
 
 yad --center \
     --title="$titulo" \
@@ -346,11 +285,11 @@ yad --center \
     --button="Confirmo, REMOVA o PJeCalc Cidadão!":1 \
     --width="800" --height="200"  2>/dev/null
 
-
             if [ "$?" = 1 ]; then
 
 
 # ----------------------------------------------------------------------------------------
+
 
 if [ -e "$HOME/PjeCalc/.dados" ]; then
 
@@ -364,10 +303,11 @@ sleep 1
 
 fi
 
+
 # ----------------------------------------------------------------------------------------
 
-                rm -R "$HOME/PjeCalc" 2>> "$log"
 
+                rm -R "$HOME/PjeCalc" 2>> "$log"
 
                 yad --center --title="$titulo" --window-icon="$logo" --image="$logo" --text="PJeCalc Cidadão removido!"  --buttons-layout="center" --button="OK" --width="400" --height="100" 2>/dev/null
 
@@ -377,9 +317,6 @@ fi
     fi
 
 fi
-
-
-
 
 yad \
 --center \
@@ -393,8 +330,6 @@ programa feito em java e funciona no Linux.
 
 Para prosseguir, faça o download do PJeCalc Cidadão para Windows, e pressione 'Continuar'.
 
-
-
 Na tela a seguir selecione o arquivo .exe do PJeCalc Cidadão.
 Pode utilizar tanto a versão de 32 quanto a 64 bits.
 
@@ -405,12 +340,9 @@ Pode utilizar tanto a versão de 32 quanto a 64 bits.
 --width="800" --height="200" \
 2>/dev/null
 
-
-
 if [ "$?" != 0 ]; then
 	exit
 fi
-
 
 # Pergunta ao usuário com yad
 
@@ -424,11 +356,9 @@ yad --center \
     --width="400" \
     2>/dev/null
 
-
 # Verifica resposta do usuário
 
 if [ $? -eq 0 ]; then
-
 
     # Baixa o arquivo com wget (salvar o arquivo pjecalc-$VERSAO-instalador-$arch.exe na pasta $HOME)
 
@@ -447,23 +377,13 @@ else
 
 fi
 
-
-
-# Fecha o PjeCalc se ele estiver aberto
-
-# kill $(ps -aux| grep java | grep pjecalc.jar | awk '{print $2}')
-
-
 # Verificar se o PJeCalc já está em execução
 
 if pgrep -f "pjecalc.jar" &>/dev/null; then
 
-
 # Pega o PID do processo Java que roda o pjecalc.jar e o finaliza com kill -9 se o processo for teimoso.
 
 ps aux | grep pjecalc.jar | grep java | awk '{print $2}' | xargs -r kill -9
-
-
 
 echo -e "\033[1;31m\nO PJeCalc Cidadão já está em execução....\n \033[0m"
 
@@ -478,56 +398,18 @@ yad \
 --width="300" --height="100" \
 2>/dev/null
 
-
 fi
-
-
 
 rm -Rf "$HOME/.pjecalc-instalando/" 2>> "$log"
 
 mkdir -p ~/.pjecalc-instalando  2>> "$log" || echo -e "\033[1;31m\nFalha ao criar a pasta $HOME/.pjecalc-instalando. \n \033[0m"
-
-
-
-
 
 # Abre o gerenciador de arquivos, define a pasta $HOME como padrão e filtra apenas arquivos .exe.
 
 ARQUIVO=$(yad --center --title="$titulo" --window-icon="$logo" --image="$logo" --file --filename="$HOME/" --file-filter="Arquivos .exe | *.exe" --buttons-layout="center" --button="Cancelar":1 --button="OK":0 --width="1200" --height="800"  2>/dev/null)
 
 
-
-# Espaços e acentuação no caminho completo do arquivo precisa ser tratado corretamente — ou seja, entre aspas duplas.
-
-# Quando não usa aspas, o shell divide o caminho em várias partes.
-
 # ----------------------------------------------------------------------------------------
-
-# Perguntas Frequentes - Dúvidas Técnicas
-# 
-# 1) O sistema inicia, mas quando o Firefox abre é apresentado ERRO INTERNO NO SERVIDOR 
-# ou 404 NÃO ENCONTRADO. O que fazer? 
-# 
-# Aqui é necessário entender que ocorreu algum erro durante o processo de inicialização 
-# do sistema. Para saber exatamente qual o erro, é necessário iniciar pelo modo debug e 
-# analisar o log.
-# 
-# Geralmente este erro acontece quando o usuário descompacta o programa num diretório 
-# onde existem caracteres especiais, como "&çáéíóúãÁÉÍÓÚÃÇ" e outros. Verifique no log, 
-# no trecho em que é apresentado o caminho onde o sistema está sendo executado, se é 
-# mostrado algum caractere estranho no lugar do nome correto da pasta.
-# 
-# Se mesmo assim não funcionar, é necessário enviar o log de inicialização do modo debug 
-# para o suporte para que seja feita a análise.
-# 
-# Fonte:
-# 
-# https://www.trt8.jus.br/pjecalc-cidadao/perguntas-frequentes-duvidas-tecnicas
-
-
-# O usuário fornece o caminho completo ao arquivo .exe, e verifica se esse caminho contém 
-# caracteres especiais como [&|;<>*?()\[\]{}$#!\`'"'"'\"~ /çáéíóúãõâêîôûÁÉÍÓÚÃÕÂÊÎÔÛÇ].
-
 
 
 # Recebe o caminho do arquivo como argumento.
@@ -557,11 +439,9 @@ fi
 
 CARACTERES_ESPECIAIS='[&|;<>*?()\[\]{}$#!\`'"'"'\"~ /çáéíóúãõâêîôûÁÉÍÓÚÃÕÂÊÎÔÛÇ]'
 
-
 # Verifica se o caminho contém algum dos caracteres especiais
 
 if [[ "$CAMINHO" =~ $CARACTERES_ESPECIAIS ]]; then
-
 
     echo -e "\033[1;31m\n⚠️  O caminho contém caracteres especiais: \n$CAMINHO\n\033[0m"
 
@@ -581,20 +461,17 @@ else
 
     echo -e "\033[1;32m\n✅ O caminho NÃO contém caracteres especiais. \n$CAMINHO \n\033[0m"
 
-    
 fi
-
-
 
 ARQUIVO="$CAMINHO"
 
+
 # ----------------------------------------------------------------------------------------
+
 
 # Versão mais recente do PJe-Calc no site oficial: 
 
-
 # Criar diretório de instalação
-
 
 if mkdir -p "$HOME/PjeCalc" 2>> "$log"; then
 
@@ -630,7 +507,6 @@ fi
 
 # O Bash diferencia maiúsculas de minúsculas por padrão. NÃO vai detectar PJeCalc, Pjecalc, PJECalc, etc.
 
-
 # Solução que funciona com qualquer variação de maiúsculas/minúsculas:
 
 if echo "$ARQUIVO" | grep -iq "pjecalc"; then
@@ -651,21 +527,17 @@ echo "$ARQUIVO" | grep -oP '(?<=pjecalc-)\d+\.\d+\.\d+' > $HOME/PjeCalc/versao_i
 
 # Se não for igual, exibir um aviso com o yad (interface gráfica) informando que o usuário está tentando instalar uma versão desatualizada.
 
-
 # Verifica se o arquivo existe
 
 if [[ -f "$HOME/PjeCalc/versao_instalada.txt" ]]; then
 
     VERSAO_ARQUIVO=$(<"$HOME/PjeCalc/versao_instalada.txt")
 
-
     # O bloco if será executado apenas quando a versão do arquivo .exe for menor que a versão do site ($VERSAO), e não apenas diferente.
 
     if [[ "$(printf '%s\n' "$VERSAO_ARQUIVO" "$VERSAO" | sort -V | head -n1)" == "$VERSAO_ARQUIVO" && "$VERSAO" != "$VERSAO_ARQUIVO" ]]; then
 
-
         echo -e "\033[1;31m\nA versão do arquivo ($VERSAO_ARQUIVO) é menor que a versão do site ($VERSAO) \n\033[0m"
-
 
         yad --center \
             --title="Atenção" \
@@ -678,13 +550,11 @@ if [[ -f "$HOME/PjeCalc/versao_instalada.txt" ]]; then
             --width="700" --height="150" \
             2> /dev/null
 
-
         if [ "$?" != 0 ]; then
 
 	        exit
 
         fi
-
 
     fi
 
@@ -694,18 +564,14 @@ else
 
 fi
 
-
-
-
 else
 
     echo -e "\033[1;31m\nO arquivo $ARQUIVO NÃO contém 'pjecalc' no nome. \n\033[0m"
 
 fi
 
+
 # ----------------------------------------------------------------------------------------
-
-
 
 
 # Verificar se o arquivo .exe do PJeCalc foi fornecido
@@ -717,14 +583,11 @@ if [ -n "$ARQUIVO" ]; then
 fi
 
 
-
 # Verificar se o arquivo .exe existe
 
 if ! [ -e "$HOME/.pjecalc-instalando/pjecalc.exe" ]; then
 
-
     echo -e "\033[1;31m\nO arquivo $HOME/.pjecalc-instalando/pjecalc.exe não existe. \n \033[0m"
-
 
 yad \
 --center  \
@@ -744,43 +607,8 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+
 # Descompactar o arquivo .exe
-
-
-# 3) O programa inicia, mas, na tela de dados do cálculo, o sistema não permite acionar 
-# os botões, abas ou menus, impossibilitando a criação do cálculo. O que devo fazer?
-# 
-# Este problema acontece por dois motivos: o usuário iniciou o programa sem antes 
-# descompactar o arquivo ".zip" da instalação ou iniciou diretamente do arquivo "pjecalc.jar". 
-# O procedimento correto, conforme descreve o manual, é descompactar o arquivo ".zip" num 
-# local da sua escolha e, na pasta descompactada, procurar o arquivo "iniciarPJeCalc.bat" 
-# ou "iniciarPJeCalcDebug.bat". 
-# 
-# Às  vezes, devido a restrições do usuário do sistema operacional, é necessário iniciar 
-# o programa como administrador. Para isso, clique com o botão direito sobre o arquivo de 
-# inicialização e selecione a opção "Executar como Administrador".
-# 
-# 
-# 
-# 4) Baixei o PJe-Calc Cidadão mas, quando tento acessá-lo, é exibido o erro 
-# "O windows não pode encontrar 'jre7-windows\bin\javaw'. Certifique-se de que o nome foi 
-# digitado corretamente e tente novamente." O que fazer?
-# 
-# Esse caso geralmente ocorre quando o usuário tenta iniciar o PJe-Calc Cidadão diretamente 
-# do arquivo compactado. É necessário, primeiramente, descompactar o arquivo ".zip" e 
-# procurar o arquivo "iniciarPJeCalc.bat" dentro do diretório em que foi descompactado o 
-# programa para iniciar.
-# 
-# Em casos onde o programa foi instalado por um administrador do sistema operacional, pode 
-# acontecer de o usuário final não ter permissão na pasta criada pelo administrador. Nesse 
-# caso, é necessário que o administrador dê permissão para os demais usuários da máquina 
-# ou que o próprio usuário execute o programa como administrador, geralmente clicando com 
-# o botão direito e selecionando a opção "Executar como administrador".
-
-
-# https://www.trt8.jus.br/pjecalc-cidadao/perguntas-frequentes-duvidas-tecnicas
-
-
 
 cd "$HOME/.pjecalc-instalando/" 2>> "$log" || {
 
@@ -822,19 +650,10 @@ cd "$HOME/.pjecalc-instalando/" 2>> "$log" || {
 }
 
 
-# ls -1 pjecalc-windows64-2.13.2/
-# bin
-# icone_calc.ico
-# iniciarPjeCalc.bat
-# iniciarPjeCalcDebug.bat
-# navegador
-# pjecalc_splash.gif
-# tomcat
-
-
 # ----------------------------------------------------------------------------------------
 
-# Remoção do arquivo pjecalc.exe
+
+# Remoção do arquivo .exe
 
 
 # Janela de confirmação
@@ -843,7 +662,7 @@ yad \
 --center \
 --title="Confirmar Remoção" \
 --window-icon="$logo" --image="$logo" \
---text="Deseja remover o arquivo <b>pjecalc.exe</b>?" \
+--text="Deseja remover o arquivo .exe baixado?" \
 --width=300 \
 --buttons-layout="center" \
 --button=Não:1 --button=Sim:0 --width="400" --height="100" 2>/dev/null
@@ -881,10 +700,7 @@ mkdir -p ~/PjeCalc 2>> "$log" ||  echo -e "\033[1;31m\nFalha ao criar diretório
 
 cp -Rf pjecalc-*/* "$HOME/PjeCalc" 2>> "$log" || echo -e "\033[1;31m\nFalha ao copiar os arquivos para pasta $HOME/PjeCalc \n \033[0m"
 
-
 if [ -e "$HOME/PjeCalc/.dados" ]; then
-
-
 
 yad --center \
     --title="$titulo" \
@@ -895,9 +711,7 @@ yad --center \
     --button="APAGAR MEUS DADOS":1 \
     --width="800" --height="200"  2>/dev/null
 
-
     if [ "$?" = 1 ]; then
-
 
 yad --center \
     --title="$titulo" \
@@ -908,7 +722,6 @@ yad --center \
     --button="Confirmo, apague os dados!":1 \
     --width="800" --height="200"  2>/dev/null
 
-
             if [ "$?" = 1 ]; then
 
                 rm -R "$HOME/PjeCalc/.dados" 2>> "$log" || echo -e "\033[1;31m\nFalha ao remove a pasta $HOME/PjeCalc/.dados \n \033[0m"
@@ -917,7 +730,6 @@ yad --center \
 
             fi
     fi
-
 
 else
 
@@ -931,44 +743,16 @@ rm -Rf "$HOME/.pjecalc-instalando/" 2>> "$log" || echo -e "\033[1;31m\nFalha ao 
 
 # ----------------------------------------------------------------------------------------
 
+
 # Verificar se o usuário tem acesso ao arquivo PjeCalc/.dados/pjecalc.h2.db
 
-
-# 5) Baixei o PJe-Calc Cidadão, mas quando tento acessá-lo é exibido erro informando que 
-# o banco de dados não foi encontrado. O que fazer?
-# 
-# Geralmente o erro de banco de dados não encontrado acontece pela falta de permissões do 
-# usuário à pasta onde o PJe-Calc foi instalado ou então porque o arquivo do instalador 
-# não foi descompactado corretamente.
-# 
-# O primeiro passo é garantir que o arquivo do instalador foi efetivamente descompactado. 
-# É comum o usuário tentar executar o programa diretamente do arquivo compactado, uma vez 
-# que o Windows exibe facilmente os arquivos existentes no instalador mesmo que ele ainda 
-# esteja compactado. Se este for o seu caso, garanta que o instalador seja descompactado 
-# antes de tentar executar o PJe-Calc Cidadão.
-# 
-# Se o problema não for a descompactação do arquivo de instalação, é preciso que o usuário 
-# verifique se o arquivo de banco de dados efetivamente existe na pasta onde o instalador 
-# foi descompactado e garanta que existam permissões de acesso do usuário que executa o 
-# PJe-Calc Cidadão à pasta em que se encontra o banco de dados. O banco de dados do 
-# PJe-Calc Cidadão fica dentro de uma pasta chamada ".dados", que fica dentro da pasta 
-# onde o sistema foi descompactado, e é um arquivo com nome "pjecalc.h2.db".
-
-
-# $ find $HOME/PjeCalc -iname pjecalc.h2.db
-# /home/biglinux/PjeCalc/.dados/pjecalc.h2.db
-
-
 ARQUIVO_PjeCalc="$HOME/PjeCalc/.dados/pjecalc.h2.db"
-
 
 # Verificar se o arquivo pjecalc.h2.db existe
 
 if [ -f "$ARQUIVO_PjeCalc" ]; then
 
     echo "✅ O arquivo existe: $ARQUIVO_PjeCalc"
-
-
 
 if [ -r "$ARQUIVO_PjeCalc" ] && [ -w "$ARQUIVO_PjeCalc" ]; then
 
@@ -977,11 +761,9 @@ if [ -r "$ARQUIVO_PjeCalc" ] && [ -w "$ARQUIVO_PjeCalc" ]; then
 
     notify-send "PJeCalc Cidadão" -i "$logo" -t 100000 "\n✅ O usuário tem acesso de leitura e escrita ao arquivo: $ARQUIVO_PjeCalc\n"
 
-
 else
 
     echo -e "\033[1;31m❌ Sem permissão para acessar (ler ou escrever) o arquivo: $ARQUIVO_PjeCalc\033[0m"
-
 
     yad --center --title="PJeCalc Cidadão" --window-icon=dialog-warning --image="$logo" --text="❌ Sem permissão para acessar (ler ou escrever) o arquivo: $ARQUIVO_PjeCalc" --buttons-layout="center"  --button="OK" --width="500" 2>/dev/null
 
@@ -1005,16 +787,13 @@ fi
 
 # https://www.trt8.jus.br/pjecalc-cidadao/perguntas-frequentes-duvidas-tecnicas
 
-# ----------------------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------------------
 
 
 if [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
 
-
-
 echo -e "\033[1;32m\nPJeCalc Cidadão instalado com sucesso! \n\033[0m"
-
 
 yad \
 --center \
@@ -1041,8 +820,6 @@ Menu iniciar => Internet => Manual do PJe
 # ----------------------------------------------------------------------------------------
 
 
-# clear
-
 echo "
 Baixa as Tabelas Auxiliares (.idc)
 "
@@ -1059,8 +836,6 @@ mkdir -p "$DESTINO"
 PAGINA="https://www.trt8.jus.br/pjecalc-cidadao/tabelas-auxiliares-trt8"
 
 # Extrai o link .idc
-
-# https://www.trt8.jus.br/sites/portal/files/roles/pje-calc/tabelasnacionaisregionais202504020201.idc
 
 REL_LINK=$(curl -s "$PAGINA" | grep -oE 'href="(/sites/portal/files/roles/pje-calc/tabelasnacionaisregionais[0-9]+\.idc)"' | head -1 | cut -d'"' -f2)
 
@@ -1097,11 +872,6 @@ else
 fi
 
 
-
-# Fonte:
-
-# https://www.trt8.jus.br/pjecalc-cidadao/tabelas-auxiliares-trt8
-
 # ----------------------------------------------------------------------------------------
 
 
@@ -1110,6 +880,5 @@ else
     yad --center --title="$titulo" --window-icon="$logo" --image="$logo" --text="A instalação não foi realizada com sucesso!"  --buttons-layout="center" --button=OK --width="400" --height="100" 2>/dev/null
 
 fi
-
 
 exit 0
