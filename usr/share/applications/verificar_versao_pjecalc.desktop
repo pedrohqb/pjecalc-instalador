@@ -3,11 +3,6 @@ Type=Application
 Name=Verificar atualização para o PJeCalc Cidadão
 Comment=Busca por atualização do PJeCalc Cidadão.
 Exec=/usr/local/bin/verificar_versao_pjecalc.sh
-
-# Icon=/usr/share/pixmaps/icone_calc.ico
-# Icon=/usr/share/pixmaps/pjecalc.png
 Icon=pjecalc
-
 Terminal=true
 Categories=Utility;
- 
