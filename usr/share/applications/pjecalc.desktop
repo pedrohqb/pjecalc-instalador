@@ -1,4 +1,3 @@
-#!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -53,7 +52,6 @@ Name[vi]=
 Name[zh_CN]=
 Name[zh_TW]=
 
-
 GenericName=PjeCalc
 GenericName[ar]=
 GenericName[bg]=
@@ -104,7 +102,6 @@ GenericName[sk]=
 GenericName[sr]=
 GenericName[te]=
 GenericName[vi]=
-
 
 Comment=PjeCalc (or PJe Calculator) is an official tool of the Brazilian Labor Court used to make labor calculations in electronic legal proceedings in the PJe (Electronic Judicial Process) system.
 Comment[ar]=
@@ -157,7 +154,6 @@ Comment[zh_CN]=
 Comment[zh_HK]=
 Comment[zh_TW]=
 
-
 Keywords=calculadora;trabalhista;justiça;PJe;liquidação;cálculo;PJeCalc;
 Keywords[pt_PT]=calculadora;trabalho;justiça;PJe;liquidação;cálculo;PJeCalc;
 Keywords[pt_BR]=calculadora;trabalhista;justiça;PJe;liquidação;cálculo;PJeCalc;
@@ -204,37 +200,18 @@ Keywords[vi]=máy tính;xã hội;công lý;PJe;thanh lý;tính toán;
 Keywords[zh_CN]=计算器;劳动;司法;PJe;清算;计算;
 Keywords[zh_TW]=計算機;勞動;司法;PJe;清算;計算;
 
-
-
-
-# Icon=/usr/share/pixmaps/icone_calc.ico
-# Icon=/usr/share/pixmaps/pjecalc.png
 Icon=pjecalc
 
-
 Exec=/usr/local/bin/pjecalc-abrir.sh
-
-
-# Ou você pode acessar direto o endereço localhost:9257/pjecalc/pages/principal.jsf e salvar ele nos favoritos do seu navegador (Firefox).
-
-# Entretanto lembre-se que o PJeCalc Cidadão só vai rodar neste endereço quando a aplicação Java estiver rodando.
-
-# Exec=xdg-open http://localhost:9257/pjecalc/pages/principal.jsf
-
-
-
 
 # Aqui define a pasta
 
 Path=
 
-
 Categories=Office;
 Terminal=false
 StartupNotify=true
 X-GIO-NoFuse=true
-
-
 Actions=SoftwareRender;
 
 [Desktop Action SoftwareRender]
