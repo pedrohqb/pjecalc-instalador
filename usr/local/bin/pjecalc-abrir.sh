@@ -4,26 +4,9 @@
 #
 #   Bruno Goncalves <bigbruno@gmail.com>
 #   Fernando Souza - https://www.youtube.com/@fernandosuporte/
-#
-# Data:     13/04/2025 as 17:36:18
-# Homepage: https://github.com/tuxslack/pjecalc-instalador
-# Licença:  MIT
-
-
-#    * Trocado kdialog por yad para maior compatibilidade com outras interfaces gráficas.
-#    * Tenta localizar o Java, utilizando o diretório mais provável.
-#    * Adicionado tratamento de erros.
-#    * Baixa o arquivo .exe (versão para Windows) do PJeCalc Cidadão atualizado, diretamente do site oficial.
-
-
-# Instalação PJeCalc Cidadão
-#
-# https://www.trt8.jus.br/pjecalc-cidadao
-# https://www.youtube.com/watch?v=GIqSTTuOBwM
-# https://www.trt8.jus.br/pjecalc-cidadao/manuais
-# https://forum.biglinux.com.br/d/2315-pje-calc-no-biglinux
-
-
+#   Modificado por Pedro Henrique Quitete Barreto - pedrohqb@gmail.com
+#   Homepage: https://github.com/pedrohqb/pjecalc-instalador
+#   Licença:  MIT
 
 logo="/usr/share/pixmaps/icone_calc.ico"
 
@@ -43,7 +26,6 @@ porta="9257"
 # Logs de execução
 
 log="/tmp/pjecalc.log"
-
 
 
 clear
@@ -72,7 +54,6 @@ echo  "
 $INICIO
 
 " >> "$log"
-
 
 
 # ----------------------------------------------------------------------------------------
@@ -165,20 +146,6 @@ fi
 verifica_java
 
 
-# Caminho para o programa Java (ajuste se necessário)
-
-# Definindo manualmente a variável java:
-
-# ls /usr/lib/jvm/ | grep openjdk
-# which java
-
-# JAVA_PATH="/usr/lib/jvm/openjdk11/bin/java"
-
-
-
-
-
-
 # Verifica se encontrou
 
 if [ -x "$JAVA_PATH" ]; then
@@ -206,6 +173,7 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+
 # Verificando se o caminho existe antes de usar:
 
 if [ -x "$JAVA_PATH" ]; then
@@ -219,6 +187,7 @@ else
     exit 1
 
 fi
+
 
 # ----------------------------------------------------------------------------------------
 
@@ -315,7 +284,9 @@ yad --center \
 
 fi
 
+
 # ----------------------------------------------------------------------------------------
+
 
 # Verificar acesso a pasta $HOME/PjeCalc
 
@@ -356,30 +327,6 @@ else
 fi
 
 
-# Verifica arquivos dentro da pasta
-
-# ACESSO_OK=true
-# for ARQ in "$PASTA"/*; do
-#    [ -e "$ARQ" ] || continue  # Pula se não existir arquivos
-
-#    if [ ! -r "$ARQ" ] || [ ! -w "$ARQ" ]; then
-#        echo -e "${VERMELHO}❌ Sem acesso total ao arquivo: $ARQ${RESET}"
-#        ACESSO_OK=false
-#    else
-#        echo -e "${VERDE}✔️  Acesso OK: $ARQ${RESET}"
-#    fi
-# done
-
-
-# Resultado final
-
-# if [ "$ACESSO_OK" = true ]; then
-#    echo -e "\n${VERDE}✅ Você tem acesso total a todos os arquivos.${RESET}"
-# else
-#    echo -e "\n${AMARELO}⚠️  Alguns arquivos não têm permissão de leitura e/ou escrita.${RESET}"
-# fi
-
-
 }
 
 
@@ -387,6 +334,7 @@ verificar_acesso
 
 
 # ----------------------------------------------------------------------------------------
+
 
 # Mensagem sobre o arquivo de log
 
@@ -485,12 +433,14 @@ com o setor de tecnologia da informação do TRT da sua região para assistênci
 
 # ----------------------------------------------------------------------------------------
 
+
 # Verificar se o Firefox esta instalado.
 
 if command -v firefox > /dev/null 2>&1; then
 
 
 # ----------------------------------------------------------------------------------------
+
 
 # Vamos matar o Firefox se ele estiver aberto.
 
@@ -539,7 +489,9 @@ else
 
 fi
 
+
 # ----------------------------------------------------------------------------------------
+
 
 # Para finalizar o processo associado ao pjecalc.jar.
 
@@ -547,30 +499,8 @@ pkill -f pjecalc.jar 2>/dev/null
 
 sleep 1
 
+
 # ----------------------------------------------------------------------------------------
-
-# Verificar se existe algum programa usando a porta 9257.
-
-
-# 2) O sistema inicia, mas quando o Firefox abre é apresentado 
-# "This service requires use of the WebSocket protocol". O que fazer? 
-
-# O problema ocorre quando algum outro programa está utilizando a mesma porta utilizada 
-# pelo PJe-Calc Cidadão (a porta 9257). O que deve ser feito é identificar qual o programa 
-# e verificar se é um programa necessário, se não for, você pode desinstalar. Caso seja 
-# necessário, você deve pará-lo antes de iniciar o PJe-Calc Cidadão.
-# 
-# Para identificar quem está utilizando a porta 9257, você pode utilizar o comando 
-# "netstat" do windows. Veja o link: http://solucoesms.com.br/como-verificar-qual-aplicativo-esta-usando-uma-porta/
-# Após identificar o processo, você pode finalizá-lo com o comando "killall -9".
-#
-# Uma alternativa à solução acima é mudar a porta do próprio PJe-Calc Cidadão. Para isso, 
-# procure pelo arquivo "/tomcat/conf/server.xml" dentro do diretório onde está instalado 
-# o PJe-Calc Cidadão. Na linha 71 (ou procure pelo texto "9257"), mude para outro número, 
-# por exemplo "19257". Salve o arquivo, reinicie o computador e inicie o PJe-Calc novamente. 
-# Após iniciar, deverá ser informado manualmente no seu navegador a URL com a porta 
-# alterada: http://localhost:19257/pjecalc
-
 
 
 # Verifica se a porta está em uso.
@@ -649,6 +579,7 @@ fi
 
 # ----------------------------------------------------------------------------------------
 
+
 cd "$HOME/PjeCalc/" 2>> "$log" || exit
 
 
@@ -687,62 +618,8 @@ Iniciando o PJeCalc Cidadão...
   -jar bin/pjecalc.jar 2>> "$log" &
 
 
-# >> "$log" 2>&1 &
-
-
 # ----------------------------------------------------------------------------------------
 
-
-# Erro gerado no terminal realacionado ao PJeCalc Cidadão (programa java) na area de notificação.
-
-# $ console.error: ({})
-# console.error: "Given tab is not restoring."
-
-# $ console.error: ({})
-# console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
-
-
-# console.error: ({}) — Isso apenas está registrando um objeto vazio no console. Provavelmente 
-# faz parte de uma cadeia de logs maior.
-
-
-# O PJe-Calc Cidadão utiliza um arquivo chamado update.locale como parte de sua estrutura 
-# de localização e internacionalização. Esse arquivo é crucial para o correto funcionamento 
-# do sistema, pois contém informações de idioma e configurações regionais.
-
-
-# "update.locale" file doesn't exist in either the application or GRE directories — O
-# PJeCalc Cidadão está tentando encontrar um arquivo chamado update.locale, mas ele não está em 
-# nenhum dos diretórios esperados (nem no do aplicativo, nem no diretório do GRE — Gecko Runtime Environment).
-
-
-# Atualizar as tabelas auxiliares: Após a instalação, é fundamental atualizar as tabelas auxiliares do sistema.
-
-
-# update.locale ainda está ausente	Refaça a atualização de tabelas
-
-# Problema de idioma ou menus em branco	Verifique se update.locale contém pt-BR
-
-# echo "pt-BR" > /PjeCalc/update.locale
-
-
-
-# Para finalizar o processo associado ao pjecalc.jar.
-
-# pkill -f pjecalc.jar
-
-
-# ----------------------------------------------------------------------------------------
-
-
-# $JAVA_PATH -jar ~/PjeCalc/bin/pjecalc.jar &
-# [TRT8] Caminho da instalacao : /home/biglinux/PjeCalc/bin
-# [TRT8] Configurando variaveis basicas.
-# [TRT8] Buscando porta HTTP.
-# [TRT8] Buscando url correta.
-# [TRT8] Porta HTTP: 9257
-# [TRT8] URL HTTP: http://localhost:9257/pjecalc
-# [TRT8] Validando a existencia do banco H2.
 
 fi
 
@@ -756,8 +633,6 @@ while [  $ESPERAR = 1 ]; do
     if [ "$?" = 0 ]; then
 
         ESPERAR=0
-
-        # exec xdg-open http://localhost:$porta/pjecalc 2>> "$log"
 
 
         # O PJe Office é homologado oficialmente só para o Firefox.
@@ -780,68 +655,21 @@ done
 if curl -s --head http://localhost:$porta | grep "HTTP/" ; then
 
 
-# $ curl -s --head http://localhost:9257
-# HTTP/1.1 200 OK
-# Server: Apache-Coyote/1.1
-# Accept-Ranges: bytes
-# ETag: W/"403-1734035909850"
-# Last-Modified: Thu, 12 Dec 2024 20:38:29 GMT
-# Content-Type: text/html
-# Content-Length: 403
-# Date: Fri, 18 Apr 2025 02:22:11 GMT
-
-
     echo -e "\nO programa está ativo na porta $porta.\n"
 
-    # yad --center --title="PjeCalc" --window-icon="$logo" --image="$logo" --text="O PjeCalc está ativo na porta $porta." --button=OK 2>/dev/null
 
 else
-
-# curl: (7) Failed to connect to localhost port 9257 after 0 ms: Could not connect to server
-# curl: (7) Failed to connect to localhost port 9257 after 0 ms: Could not connect to server
-# curl: (7) Failed to connect to localhost port 9257 after 0 ms: Could not connect to server
-# curl: (7) Failed to connect to localhost port 9257 after 0 ms: Could not connect to server
-# curl: (7) Failed to connect to localhost port 9257 after 0 ms: Could not connect to server
-# curl: (7) Failed to connect to localhost port 9257 after 0 ms: Could not connect to server
-# console.error: ({})
-# console.error: "update.locale" " file doesn't exist in either the application or GRE directories"
 
 
     echo -e "\033[1;31m\n❌ A porta $porta não está respondendo como esperado.\n \033[0m"
 
     yad --center --title="PJeCalc Cidadão" --window-icon=dialog-warning --image="$logo" --text="O PJeCalc Cidadão não está acessível em http://localhost:$porta \n\nVerifique se ele está em execução." --buttons-layout="center"  --button="OK" --width="500" 2>/dev/null
     
-    # exit
     
 fi
 
+
 # ----------------------------------------------------------------------------------------
-
-
-
-# Buscar arquivos .IDC dentro de $HOME/PjeCalc/
-
-# find "$HOME/PjeCalc/" -type f -iname "*.IDC"
-
-
-# 6) Não consigo importar as tabelas auxiliares. Sempre aparece mensagem de erro, indicando 
-# que o arquivo é inválido. O que fazer? 
-# 
-# Esse tipo de erro costuma acontecer quando o usuário descompacta o arquivo das tabelas 
-# auxiliares antes de importá-lo no PJe-Calc Cidadão. Se este for o seu caso, basta 
-# importar no sistema o arquivo das tabelas auxiliares compactado, exatamente da forma 
-# que ele é disponibilizado no portal do TRT. Além disso, certifique-se de estar acessando 
-# o menu correto para importação das tabelas auxiliares (Tabelas > Atualização de Tabelas 
-# e Índices).
-# 
-# A partir da versão 2.5.1 do sistema, o arquivo compactado de tabelas auxiliares vêm com 
-# a extensão ".IDC" e deve ser importado diretamente neste formato. Isso foi feito para 
-# que o windows não associe o arquivo a um programa de descompactação e leve o usuário a 
-# extrai-lo.
-# 
-# 
-# https://www.trt8.jus.br/pjecalc-cidadao/perguntas-frequentes-duvidas-tecnicas
-# https://www.trt8.jus.br/pjecalc-cidadao/tabelas-auxiliares-trt8
 
 
 # Arquivo compactado de tabelas auxiliares
@@ -862,28 +690,6 @@ else
     notify-send "PJeCalc Cidadão" -i "$logo" -t 100000 "\n❌ Nenhum arquivo .IDC encontrado em $HOME/PjeCalc/ \n\nhttps://www.trt8.jus.br/pjecalc-cidadao/tabelas-auxiliares-trt8 \n"
 
 
-    # Baixa o arquivo .idc e salva com o nome tabelas.idc dentro da pasta $HOME/PjeCalc/.  (Padrão no nome: tabelasnacionaisregionais$(date +%Y%m%d)0201.idc)
-
-    # wget -P $HOME/PjeCalc/ -O tabelas.idc -c "https://www.trt8.jus.br/sites/portal/files/roles/pje-calc/tabelasnacionaisregionais202504020201.idc"
-
-
-    # Diferença entre -P e -O:
-
-    # -P → define o diretório onde o arquivo será salvo.
-
-    # -O → define o nome do arquivo que será salvo.
-
-
-    # O wget não suporta curingas (*) em URLs da web como faria no terminal com arquivos locais. 
-
-    # Não vai funcionar, porque o * não é interpretado pelo wget como "qualquer coisa" — ele precisa de um link completo para o arquivo.
-
-    # Ex: https://www.trt8.jus.br/sites/portal/files/roles/pje-calc/tabelasnacionaisregionais*.idc
-
-
-
-    # exit
-
 fi
 
 
@@ -895,10 +701,6 @@ notify-send "PJeCalc Cidadão" -i "$logo" -t 100000 "\nEm caso de problemas, ver
 
 # ----------------------------------------------------------------------------------------
 
-# Problema:
-
-# =========== 18-04-2025 01:06:22 - InÃ­cio da execuÃ§Ã£o do PJe-Calc ==========
-
 
 # Converter o arquivo pjecalc.log para UTF-8 sem gerar um novo arquivo
 
@@ -908,19 +710,7 @@ iconv -f ISO-8859-1 -t UTF-8 /tmp/pjecalc.log -o /tmp/pjecalc-temp.log && mv /tm
 sed -i "s/^==========.*/$INICIO/g" "$log"
 
 
-# O que esse comando faz:
-
-#     ^==========: só substitui se a linha começa com ==========.
-
-#     /$INICIO/: troca pelo conteúdo da variável INICIO.
-
-#     "$log": o arquivo que será editado.
-
-#     -i: modifica o arquivo original.
-
-
 # ----------------------------------------------------------------------------------------
 
 
 exit 0
-
