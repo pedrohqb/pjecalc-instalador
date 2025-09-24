@@ -1,31 +1,9 @@
 #!/bin/bash
 #
 # Autor: Fernando Souza - https://www.youtube.com/@fernandosuporte/
-#
-# Data:     22/04/2025 as 23:41:06
-# Homepage: https://github.com/tuxslack/pjecalc-instalador
+# Modificado por Pedro Henrique Quitete Barreto - pedrohqb@gmail.com
+# Homepage: https://github.com/pedrohqb/pjecalc-instalador
 # Licença:  MIT
-
-
-# Para fazer backup:
-
-# pje_backup_restore.sh backup
-
-
-# Para restaurar:
-
-# pje_backup_restore.sh restaurar
-
-
-# Automatizar via cron é perfeito pra manter backup diário sem dor de cabeça. 
-
-# Chama o script com a opção de backup
-
-# 22 00 * * * /bin/bash /usr/local/bin/pje_backup_restore.sh backup
-
-
-
-
 
 # Caminhos base
 
@@ -90,11 +68,6 @@ fazer_backup() {
 
         ls -lh $HOME/PjeCalc-dados-*.tar.gz
 
-# $ ls -lh $HOME/PjeCalc-dados-*.tar.gz
-# -rw-r--r-- 1 biglinux biglinux 2,1M abr 23 00:26 /home/biglinux/PjeCalc-dados-2025-04-23_00-26.tar.gz
-# -rw-r--r-- 1 biglinux biglinux 2,1M abr 23 01:13 /home/biglinux/PjeCalc-dados-2025-04-23_01-13.tar.gz
-
-
     else
         log "❌ ERRO: A pasta $PASTA_ORIGEM não existe."
     fi
@@ -135,4 +108,3 @@ esac
 
 
 exit 0
-
