@@ -120,13 +120,11 @@ versao_para_numero() {
 
 JAVA_VERSION_RAW=$(java -version 2>&1 | awk -F\" '/version/ { print $2 }')
 
-
 # Converte as versões para números inteiros
 
 JAVA_NUM=$(versao_para_numero "$JAVA_VERSION_RAW")
 MIN_NUM=$(versao_para_numero "$VERSAO_MINIMA")
 MAX_NUM=$(versao_para_numero "$VERSAO_MAXIMA")
-
 
 # Faz a comparação no if
 
@@ -245,7 +243,6 @@ Versão mais recente do PJeCalc Cidadão: $VERSAO
 Versão do Java: 
 
 $(`which java` --version)
-
 
 Arquitetura do processador: $(uname -m)
 
@@ -517,11 +514,9 @@ if echo "$ARQUIVO" | grep -iq "pjecalc"; then
 
 # Ex: pjecalc-2.13.2-instalador-x64.exe
 
-
 # Adiciona no arquivo $HOME/PjeCalc/versao_instalada.txt a versão do PJeCalc que esta no nome do arquivo .exe
 
 echo "$ARQUIVO" | grep -oP '(?<=pjecalc-)\d+\.\d+\.\d+' > $HOME/PjeCalc/versao_instalada.txt
-
 
 # Verificar se o conteúdo do arquivo ~/PjeCalc/versao_instalada.txt é igual ao valor da variável $VERSAO.
 
@@ -627,7 +622,6 @@ cd "$HOME/.pjecalc-instalando/" 2>> "$log" || {
     exit 1
 }
 
-
 # Tentar descompactar com 7z, e se falhar, registrar o erro no arquivo de log.
 
 7z x pjecalc.exe 2>> "$log" || {
@@ -655,7 +649,6 @@ cd "$HOME/.pjecalc-instalando/" 2>> "$log" || {
 
 # Remoção do arquivo .exe
 
-
 # Janela de confirmação
 
 yad \
@@ -667,14 +660,13 @@ yad \
 --buttons-layout="center" \
 --button=Não:1 --button=Sim:0 --width="400" --height="100" 2>/dev/null
 
-
 # Verifica a escolha do usuário
 
 if [ $? -eq 0 ]; then
 
     rm $HOME/pjecalc-$VERSAO-instalador-$arch.exe 2>> "$log" && \
     rm pjecalc.exe 2>> "$log" && \
-    yad --center --title="Removido" --window-icon="$logo" --image="$logo" --text="Arquivo <b>pjecalc.exe</b> removido com sucesso!" --buttons-layout="center" --button=OK --width="400" --height="100" 2>/dev/null
+    yad --center --title="Removido" --window-icon="$logo" --image="$logo" --text="Arquivo .exe removido com sucesso!" --buttons-layout="center" --button=OK --width="400" --height="100" 2>/dev/null
 
 else
 
@@ -690,11 +682,9 @@ rm -Rf pjecalc-*/navegador 2>> "$log" || echo -e "\033[1;31m\nFalha ao remove os
 
 rm -Rf pjecalc-*/bin/jre   2>> "$log" || echo -e "\033[1;31m\nFalha ao remove os arquivos... \n \033[0m"
 
-
 # Criar diretório de instalação
 
 mkdir -p ~/PjeCalc 2>> "$log" ||  echo -e "\033[1;31m\nFalha ao criar diretório de instalação $HOME/PjeCalc.\n \033[0m"
-
 
 # Copiar o arquivo .exe para o diretório de instalação
 
@@ -737,7 +727,6 @@ else
 
 fi
 
-
 rm -Rf "$HOME/.pjecalc-instalando/" 2>> "$log" || echo -e "\033[1;31m\nFalha ao remove a pasta $HOME/.pjecalc-instalando \n \033[0m"
 
 
@@ -755,7 +744,6 @@ if [ -f "$ARQUIVO_PjeCalc" ]; then
     echo "✅ O arquivo existe: $ARQUIVO_PjeCalc"
 
 if [ -r "$ARQUIVO_PjeCalc" ] && [ -w "$ARQUIVO_PjeCalc" ]; then
-
 
     echo -e "\033[1;32m\n✅ O usuário tem acesso de leitura e escrita ao arquivo: $ARQUIVO_PjeCalc \n\033[0m"
 
@@ -781,8 +769,6 @@ else
 
 fi
 
-
-
 # Fonte:
 
 # https://www.trt8.jus.br/pjecalc-cidadao/perguntas-frequentes-duvidas-tecnicas
@@ -806,7 +792,6 @@ pasta o <b>PjeCalc</b> não irá funcionar.
 
 Para utilizar o <b>PJeCalc Cidadão</b>, abra-o no menu do sistema na categoria <b>Escritório</b>.
 
-
 Foi adicionado um atalho para <b>documentação online do PJeCalc Cidadão</b>.
 
 Menu iniciar => Internet => Manual do PJe
@@ -829,7 +814,6 @@ Baixa as Tabelas Auxiliares (.idc)
 DESTINO="$HOME/PjeCalc"
 
 mkdir -p "$DESTINO"
-
 
 # Página com o link
 
