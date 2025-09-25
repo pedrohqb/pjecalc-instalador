@@ -10,26 +10,21 @@
 
 logo="/usr/share/pixmaps/icone_calc.ico"
 
-
 # Versões de limite do Java
 
 VERSAO_MINIMA="11.0.25"
 
 VERSAO_MAXIMA="24.0.1"
 
-
 # Porta
 
 porta="9257"
-
 
 # Logs de execução
 
 log="/tmp/pjecalc.log"
 
-
 clear
-
 
 # Remove o arquivo de log
 
@@ -38,11 +33,13 @@ rm -Rf "$log" 2>/dev/null
 
 # ----------------------------------------------------------------------------------------
 
+
 # Garantir que o shell use a codificação correta no início do script.
 
 export LANG=pt_BR.UTF-8
 
 export LC_ALL=pt_BR.UTF-8
+
 
 # ----------------------------------------------------------------------------------------
 
@@ -58,16 +55,14 @@ $INICIO
 
 # ----------------------------------------------------------------------------------------
 
+
 # Para verificar se os programas estão instalados
 
-
 which yad           1> /dev/null 2> /dev/null || { echo "Programa Yad não esta instalado."      ; exit ; }
-
 
 verificar_programa() {
 
     if ! which "$1" &> /dev/null; then
-
 
         echo  "O programa $1 não está instalado." >> "$log"
 
@@ -83,7 +78,6 @@ verificar_programa() {
     fi
 
 }
-
 
 # Verificações
 
@@ -105,14 +99,13 @@ verificar_programa find
 verificar_programa iconv
 verificar_programa sed
 
-
 # find /usr/share/icons/ -iname *gtk-dialog*
 
 
 # ----------------------------------------------------------------------------------------
 
-# Verificação automática do Java
 
+# Verificação automática do Java
 
 verifica_java(){
 
@@ -139,12 +132,9 @@ else
     fi
 fi
 
-
 }
 
-
 verifica_java
-
 
 # Verifica se encontrou
 
@@ -164,7 +154,6 @@ else
 
     exit 1
 fi
-
 
 # Agora você pode usar $JAVA_PATH normalmente:
 
@@ -200,7 +189,6 @@ versao_para_numero() {
 
 }
 
-
 # Verifica se Java está disponível
 
 if ! command -v "$JAVA_PATH" &> /dev/null; then
@@ -224,9 +212,6 @@ if [ -z "$JAVA_VERSION_RAW" ]; then
 fi
 
 echo "🔍 Versão do Java detectada: $JAVA_VERSION_RAW"
-
-# notify-send "PJeCalc Cidadão" "🔍 Versão do Java detectada: $JAVA_VERSION_RAW"
-
 
 # Converte para formato numérico
 
@@ -268,7 +253,6 @@ fi
 
 if ! [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
 
-
 yad --center \
     --title="PJeCalc Cidadão não instalado!" \
     --window-icon=dialog-warning --image="$logo" \
@@ -291,7 +275,6 @@ fi
 # Verificar acesso a pasta $HOME/PjeCalc
 
 verificar_acesso(){
-
 
 PASTA="$HOME/PjeCalc"
 
@@ -326,9 +309,7 @@ else
 
 fi
 
-
 }
-
 
 verificar_acesso
 
@@ -338,7 +319,6 @@ verificar_acesso
 
 # Mensagem sobre o arquivo de log
 
-
 echo "
 
 O que é PJeCalc Cidadão?
@@ -347,8 +327,6 @@ O PJe-Calc Cidadão é o sistema desenvolvido pela Secretaria de Tecnologia da I
 da 8ª Região (PA/AP), a pedido do Conselho Superior da Justiça do Trabalho (CSJT), para utilização em toda a Justiça do Trabalho 
 como ferramenta padrão de elaboração de cálculos trabalhistas e liquidação de sentenças, visando à uniformidade de procedimentos 
 e à confiabilidade nos resultados apurados.
-
-
 
 O arquivo de log será criado em:
 
@@ -361,7 +339,6 @@ Em caso de erro, o arquivo de log deverá ser enviado para análise.
 ----------------------------------------------------
 PJe Office + PJeCalc Cidadão + Navegador = Tudo se conecta.
 ----------------------------------------------------
-
 
 Obs: Oficialmente o PJeCalc Cidadão é compatível apenas com o Firefox - pelo menos quando integrado com o PJe Office e o sistema de cálculo da 
 Justiça do Trabalho.
@@ -379,11 +356,9 @@ bloqueiam ou restringem.
 
    - Os tribunais, como o TRT, normalmente só testam e dão suporte oficial ao Firefox.
 
-   
 Obs: A funcionalidade de importação de arquivos locais não abre no gerenciador de arquivo do KDE (Dolphin) no Firefox 128.9.0 ESR (64 bits). Ao tentar importar um arquivo, o processo não é iniciado. No entanto, a mesma funcionalidade funciona normalmente ao utilizar o navegador Brave (versão 1.62.165 - Chromium: 121.0.6167.184, 64 bits)  não foi testado em outros navegadores baseados no Chromium.
 
 Obs: O Pje-Calc Cidadão usa Firefox Portable versão 55.0.2 no Windows.
-
 
 E se usar outro navegador?
 
@@ -395,7 +370,6 @@ E se usar outro navegador?
 
 Se você quiser rodar o PJeCalc Cidadão de forma offline, sem ligação com navegador ou certificado, aí qualquer navegador serve — ou nenhum! Só o Java.
 
-
 O que funciona no modo offline:
 
 ✔️ Criar cálculos
@@ -405,13 +379,10 @@ O que funciona no modo offline:
 ❌ Assinar com certificado digital (sem PJe Office)
 ❌ Enviar para o sistema PJe automaticamente
 
-
-
 Consultar o suporte técnico: 
 
 Se o problema persistir, é aconselhável entrar em contato com o suporte técnico do PJe-Calc Cidadão ou 
 com o setor de tecnologia da informação do TRT da sua região para assistência adicional.
-
 
 " \
 | yad \
@@ -425,10 +396,6 @@ com o setor de tecnologia da informação do TRT da sua região para assistênci
 --width="1200" \
 --height="800" \
 2>/dev/null
-
-
-
-# https://pjecalccalculos.com.br/
 
 
 # ----------------------------------------------------------------------------------------
@@ -446,7 +413,6 @@ if command -v firefox > /dev/null 2>&1; then
 
 if pgrep -x firefox > /dev/null; then
 
-
     echo -e "\033[1;31m\n[ERRO] - ❌ Firefox está rodando. Matando o processo... \n\033[0m"
 
     yad --center --title="Encerrando Firefox" \
@@ -454,7 +420,6 @@ if pgrep -x firefox > /dev/null; then
         --image=dialog-warning --buttons-layout="center" --button="OK" --width="700" 2>/dev/null
 
     pkill -x firefox
-
 
 else
 
@@ -481,9 +446,6 @@ else
         --button="OK" \
         --width="640" \
         2>/dev/null
-
-
-
 
     exit 1
 
@@ -513,7 +475,6 @@ if [ -n "$OCUPADA" ]; then
 
     yad --center --window-icon=dialog-warning --image="$logo" --title="PJeCalc Cidadão" --text="\nA porta $porta está em uso:\n$OCUPADA \n" --buttons-layout="center" --button="OK" --width="500" 2>/dev/null
 
-
     # Descobre o PID usando a porta.
 
     PID=$(fuser $porta/tcp 2>/dev/null)
@@ -521,7 +482,6 @@ if [ -n "$OCUPADA" ]; then
     if [ -n "$PID" ]; then
 
         echo -e "\033[1;31m\n🔍 Processo usando a porta: PID $PID \n \033[0m"
-
 
         # Diálogo com yad para confirmação
 
@@ -534,7 +494,6 @@ if [ -n "$OCUPADA" ]; then
             --width="500" \
             --height="200" \
             2>/dev/null
-
 
         # Verifica o código de saída do yad (0 = botão 1 foi clicado)
 
@@ -560,7 +519,6 @@ if [ -n "$OCUPADA" ]; then
 
         notify-send "PJeCalc Cidadão" -i "$logo" -t 100000 "\n❌ Não foi possível identificar o processo com fuser.\n"
 
-
     fi
 
 else
@@ -570,11 +528,9 @@ else
     notify-send "Porta Livre" -i "$logo" -t 100000 "\n✅ A porta $porta está livre para ser usada no PJeCalc Cidadão...\n"
 fi
 
-
 # Fonte:
 
 # https://www.trt8.jus.br/pjecalc-cidadao/perguntas-frequentes-duvidas-tecnicas
-
 
 
 # ----------------------------------------------------------------------------------------
@@ -582,14 +538,9 @@ fi
 
 cd "$HOME/PjeCalc/" 2>> "$log" || exit
 
-
 # Esse trecho do script está verificando se o pjecalc.jar não está rodando. Se não estiver, ele inicia o programa usando Java.
 
-# https://www.youtube.com/watch?v=GIqSTTuOBwM
-
-
 if [ "$(ps -aux | grep -i pjecalc.jar | grep java)" = "" ]; then
-
 
     # Iniciar o PJeCalc Cidadão
 
@@ -599,11 +550,6 @@ if [ "$(ps -aux | grep -i pjecalc.jar | grep java)" = "" ]; then
 Iniciando o PJeCalc Cidadão...
 
 " >> "$log"
-
-
-
-   # exec "$JAVA_PATH" -Duser.timezone=GMT-3 -Dfile.encoding=ISO-8859-1 -Dseguranca.pjecalc.tokenServicos=pW4jZ4g9VM5MCy6FnB5pEfQe -Xms1024m -Xmx2048m -XX:MaxPermSize=512m -jar bin/pjecalc.jar  2>> "$log" &
-
 
    # Redirecionamento de erros (tudo (stdout + stderr) vá para o log)
 
@@ -623,7 +569,6 @@ Iniciando o PJeCalc Cidadão...
 
 fi
 
-
 ESPERAR=1
 
 while [  $ESPERAR = 1 ]; do
@@ -633,7 +578,6 @@ while [  $ESPERAR = 1 ]; do
     if [ "$?" = 0 ]; then
 
         ESPERAR=0
-
 
         # O PJe Office é homologado oficialmente só para o Firefox.
 
@@ -651,20 +595,15 @@ done
 
 # Verificar se a porta 9257 no localhost está aberta e ouvindo (ou seja, se o programa no http://localhost:9257 está ativo).
 
-
 if curl -s --head http://localhost:$porta | grep "HTTP/" ; then
-
 
     echo -e "\nO programa está ativo na porta $porta.\n"
 
-
 else
-
 
     echo -e "\033[1;31m\n❌ A porta $porta não está respondendo como esperado.\n \033[0m"
 
     yad --center --title="PJeCalc Cidadão" --window-icon=dialog-warning --image="$logo" --text="O PJeCalc Cidadão não está acessível em http://localhost:$porta \n\nVerifique se ele está em execução." --buttons-layout="center"  --button="OK" --width="500" 2>/dev/null
-    
     
 fi
 
@@ -673,7 +612,6 @@ fi
 
 
 # Arquivo compactado de tabelas auxiliares
-
 
 ARQUIVO_IDC=$(find "$HOME/PjeCalc/" -type f -iname "*.IDC" 2>/dev/null)
 
@@ -705,7 +643,6 @@ notify-send "PJeCalc Cidadão" -i "$logo" -t 100000 "\nEm caso de problemas, ver
 # Converter o arquivo pjecalc.log para UTF-8 sem gerar um novo arquivo
 
 iconv -f ISO-8859-1 -t UTF-8 /tmp/pjecalc.log -o /tmp/pjecalc-temp.log && mv /tmp/pjecalc-temp.log /tmp/pjecalc.log
-
 
 sed -i "s/^==========.*/$INICIO/g" "$log"
 
