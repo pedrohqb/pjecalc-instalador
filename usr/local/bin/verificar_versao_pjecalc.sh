@@ -10,7 +10,6 @@
 
 log="/tmp/pjecalc-update.log"
 
-
 # URL da página de instalação
 
 URL="https://www.trt8.jus.br/pjecalc-cidadao/instalando-o-pje-calc-cidadao"
@@ -148,11 +147,9 @@ if [ -z "$VERSAO" ];then
 
 fi
 
-
 # Filtrar
 
 VERSAO=$(echo ""$VERSAO | cut -d"-" -f2)
-
 
 # Exibir a versão do programa
 
