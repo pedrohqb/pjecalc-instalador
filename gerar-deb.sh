@@ -50,5 +50,5 @@ echo "Gerando pacote .deb..."
 dpkg-deb --build "$BUILD_DIR" "${PKGNAME}_${PKGVER}-${PKGREL}_${ARCH}.deb"
 
 # Limpeza
-# rm -rf "$BUILD_DIR" src_git
+rm -rf "$BUILD_DIR" src_git
 echo "Concluído!"
