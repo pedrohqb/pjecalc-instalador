@@ -6,6 +6,7 @@ if ! [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
     kdialog --msgbox $"O PjeCalc ainda não está instalado.
     
     " --title "PjeOffice não instaldo!"
+    exit 1
 fi
 
 cd "$HOME/PjeCalc/"
