@@ -23,7 +23,7 @@ while [  $ESPERAR = 1 ]; do
     curl http://localhost:9257/pjecalc
     if [ "$?" = 0 ]; then
         ESPERAR=0
-        exec xdg-open http://localhost:9257/pjecalc
+        exec xdg-open http://localhost:9257/pjecalc/pages/principal.jsf
     fi
     sleep 1
 done
