@@ -65,7 +65,7 @@ done
 # 5. Tornar os arquivos executáveis
 echo "Definindo permissões de execução..."
 [ -f "$BUILD_DIR/usr/bin/pjecalc-abrir" ] && chmod +x "$BUILD_DIR/usr/bin/pjecalc-abrir"
-[ -f "$BUILD_DIR/usr/bin/pjecalc/pjecalc-instalar-remover" ] && chmod +x "$BUILD_DIR/usr/bin/pjecalc/pjecalc-instalar-remover"
+[ -f "$BUILD_DIR/usr/bin/pjecalc-instalar-remover" ] && chmod +x "$BUILD_DIR/usr/bin/pjecalc-instalar-remover"
 
 # 6. Construir o pacote .deb
 echo "Gerando pacote .deb..."
