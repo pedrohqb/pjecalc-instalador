@@ -4,6 +4,6 @@ Terminal=false
 Icon=icone_calc
 Type=Application
 Categories=Office;
-Exec=konsole -e pjecalc-instalar-remover
+Exec=pjecalc-instalar-remover
 Name=Instalar ou remover o PjeCalc
 StartupNotify=true
