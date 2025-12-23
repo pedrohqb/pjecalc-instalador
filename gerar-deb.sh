@@ -13,12 +13,13 @@ BUILD_DIR="build_pkg"
 mkdir -p "$BUILD_DIR/DEBIAN"
 
 # 1. Clonar o código fonte
-#echo "Clonando repositório..."
-#git clone https://github.com/pedrohqb/pjecalc-instalador.git src_git
+echo "Clonando repositório..."
+git clone https://github.com/pedrohqb/pjecalc-instalador.git src_git
+
+# 2. Criar configuração de fontes
 echo "Criando configuração de fontes..."
-mkdir -p "$BUILD_DIR/usr/share/$APPNAME/config"
-#
-cat << EOF > "$BUILD_DIR/usr/share/$APPNAME/config/pjecalc-fonts.conf"
+mkdir -p "$BUILD_DIR/etc"
+cat << EOF > "$BUILD_DIR/etc/pjecalc-fonts.conf"
 <?xml version="1.0"?>
 <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
 <fontconfig>
@@ -35,10 +36,9 @@ cat << EOF > "$BUILD_DIR/usr/share/$APPNAME/config/pjecalc-fonts.conf"
 EOF
 
 # Garante que não haja espaços no início do arquivo (segurança contra erro XML)
-sed -i 's/^\s*//' "$BUILD_DIR/usr/share/$APPNAME/config/pjecalc-fonts.conf"
+sed -i 's/^\s*//' "$BUILD_DIR/etc/pjecalc-fonts.conf"
 
-
-# 2. Criar o arquivo DEBIAN/control
+# 3. Criar o arquivo DEBIAN/control
 cat << EOF > "$BUILD_DIR/DEBIAN/control"
 Package: $PKGNAME
 Version: $PKGVER-$PKGREL
@@ -50,15 +50,10 @@ Maintainer: $MAINTAINER
 Description: $DESCRIPTION
 EOF
 
-# 3. Organizar arquivos (Equivalente à função package() do PKGBUILD)
+# 4. Organizar arquivos (Equivalente à função package() do PKGBUILD)
 echo "Organizando arquivos..."
 #INTERNAL_DIR="src_git"
 INTERNAL_DIR="."
-
-# Verifica se existe a subpasta com o mesmo nome (lógica do seu PKGBUILD)
-#if [ -d "src_git/$PKGNAME" ]; then
-#    INTERNAL_DIR="src_git/$PKGNAME"
-#fi
 
 # Copia as pastas usr, etc, opt se existirem
 for dir in usr etc opt; do
@@ -68,11 +63,11 @@ for dir in usr etc opt; do
     fi
 done
 
-# 4. Construir o pacote .deb
+# 5. Construir o pacote .deb
 echo "Gerando pacote .deb..."
 dpkg-deb --build --root-owner-group "$BUILD_DIR" "${PKGNAME}_${PKGVER}-${PKGREL}_${ARCH}.deb"
 
-# 5. Limpando...
+# 6. Limpando...
 rm -rf "$BUILD_DIR"
 
 echo "Concluído!"
