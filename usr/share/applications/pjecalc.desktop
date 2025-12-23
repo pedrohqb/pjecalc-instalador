@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Icon=icone_calc
+Type=Application
+Categories=Office;
+Exec=pjecalc-abrir
+Name=PjeCalc
+StartupNotify=true
+X-GIO-NoFuse=true

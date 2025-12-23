@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Icon=icone_calc
+Type=Application
+Categories=Office;
+Exec=konsole -e pjecalc-instalar-remover
+Name=Instalar ou remover o PjeCalc
+StartupNotify=true
