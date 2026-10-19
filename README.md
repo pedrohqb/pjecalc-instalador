@@ -125,7 +125,8 @@ Ao final, o arquivo `pjecalc-instalador_AA.MM.DD-HHMM_all.deb` estará na pasta 
 - **Mensagens de erro de `FONTCONFIG` no terminal.** Podem ser ignoradas.
 - **Erro de dependência `zulu-8` ao instalar o pacote.** O Zulu 8 não está instalado, ou foi instalado pelo repositório APT da Azul (`zulu8-jdk`). Instale o `.deb` avulso, conforme o passo 1.
 - **Erro de dependência `ttf-mscorefonts-installer`.** O repositório `contrib` (Debian) ou `multiverse` (Ubuntu) não está habilitado. Veja o passo 2.
-- **O PJe-Calc não abre no navegador.** O lançador fica esperando o servidor responder. Para ver o que está acontecendo, rode `pjecalc-abrir` no terminal. Confira se existe o arquivo `/usr/lib/jvm/zulu-8-amd64/bin/java` e se nenhum outro programa está usando a porta 9257.
+- **Mensagem "Java não encontrado".** O Zulu 8 não está instalado na pasta esperada (`/usr/lib/jvm/zulu-8-amd64`). Instale o `.deb` avulso, conforme o passo 1.
+- **Mensagem "PjeCalc não abriu".** O servidor do PJe-Calc não respondeu em até 2 minutos. Para ver as mensagens de erro, rode `pjecalc-abrir` no terminal. Confira também se nenhum outro programa está usando a porta 9257.
 - **Mensagem "O PjeCalc ainda não está instalado".** Faça a instalação pelo item **Instalar ou remover o PjeCalc**, conforme a seção [Uso](#uso).
 - **Relatórios com fontes estranhas ou desalinhadas.** Confira se o pacote `ttf-mscorefonts-installer` foi instalado e concluiu o download das fontes.
 
@@ -137,4 +138,7 @@ O PJe-Calc Cidadão é software da Justiça do Trabalho e não é distribuído p
 
 ## Licença
 
-Veja o arquivo [LICENSE](LICENSE).
+Distribuído sob a licença [GNU General Public License, versão 3](LICENSE) (GPL-3.0), a mesma do projeto original.
+
+Copyright © 2020–2024 Bruno Gonçalves (BigLinux)\
+Copyright © 2025–2026 Pedro Henrique Quitete Barreto
