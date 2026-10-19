@@ -1,22 +1,18 @@
 #!/bin/bash
 
 PKGNAME="pjecalc-instalador"
-APPNAME="pjecalc"
 PKGVER=$(date +%y.%m.%d)
 PKGREL=$(date +%H%M)
 ARCH="all"
 MAINTAINER="Pedro Henrique Quitete Barreto <pedrohqb@gmail.com>"
 DESCRIPTION="Script que descompacta o .exe do Pjecalc e faz funcionar no Linux sem precisar do Wine"
 
-# Pasta de trabalho
+# Pasta de trabalho (apaga restos de uma geração anterior)
 BUILD_DIR="build_pkg"
+rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR/DEBIAN"
 
-# 1. Clonar o código fonte
-echo "Clonando repositório..."
-git clone https://github.com/pedrohqb/pjecalc-instalador.git src_git
-
-# 2. Criar configuração de fontes
+# 1. Criar configuração de fontes
 echo "Criando configuração de fontes..."
 mkdir -p "$BUILD_DIR/etc"
 cat << EOF > "$BUILD_DIR/etc/pjecalc-fonts.conf"
@@ -38,7 +34,7 @@ EOF
 # Garante que não haja espaços no início do arquivo (segurança contra erro XML)
 sed -i 's/^\s*//' "$BUILD_DIR/etc/pjecalc-fonts.conf"
 
-# 3. Criar o arquivo DEBIAN/control
+# 2. Criar o arquivo DEBIAN/control
 cat << EOF > "$BUILD_DIR/DEBIAN/control"
 Package: $PKGNAME
 Version: $PKGVER-$PKGREL
@@ -50,7 +46,7 @@ Maintainer: $MAINTAINER
 Description: $DESCRIPTION
 EOF
 
-# 4. Organizar arquivos (Equivalente à função package() do PKGBUILD)
+# 3. Organizar arquivos (Equivalente à função package() do PKGBUILD)
 echo "Organizando arquivos..."
 INTERNAL_DIR="."
 
@@ -62,16 +58,16 @@ for dir in usr etc opt; do
     fi
 done
 
-# 5. Tornar os arquivos executáveis
+# 4. Tornar os arquivos executáveis
 echo "Definindo permissões de execução..."
 [ -f "$BUILD_DIR/usr/bin/pjecalc-abrir" ] && chmod +x "$BUILD_DIR/usr/bin/pjecalc-abrir"
 [ -f "$BUILD_DIR/usr/bin/pjecalc-instalar-remover" ] && chmod +x "$BUILD_DIR/usr/bin/pjecalc-instalar-remover"
 
-# 6. Construir o pacote .deb
+# 5. Construir o pacote .deb
 echo "Gerando pacote .deb..."
 dpkg-deb --build --root-owner-group "$BUILD_DIR" "${PKGNAME}_${PKGVER}-${PKGREL}_${ARCH}.deb"
 
-# 7. Limpando...
+# 6. Limpando...
 rm -rf "$BUILD_DIR"
 
 echo "Concluído!"

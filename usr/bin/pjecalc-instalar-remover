@@ -45,7 +45,10 @@ if [ "$?" != 0 ]; then
 fi
 
 # Fecha o PjeCalc se ele estiver aberto
-kill $(ps -aux| grep java | grep pjecalc.jar | awk '{print $2}')
+PIDS_PJECALC=$(ps -aux | grep java | grep pjecalc.jar | awk '{print $2}')
+if [ -n "$PIDS_PJECALC" ]; then
+    kill $PIDS_PJECALC
+fi
 
 rm -Rf "$HOME/.pjecalc-instalando/"
 
@@ -58,9 +61,19 @@ if ! [ -e "$HOME/.pjecalc-instalando/pjecalc.exe" ]; then
 fi
 
 
-cd "$HOME/.pjecalc-instalando/"
+cd "$HOME/.pjecalc-instalando/" || exit 1
 
-7z x pjecalc.exe
+# O pacote p7zip-full fornece o comando 7z; em algumas versões, o pacote 7zip fornece só o 7zz
+SETE_ZIP=$(command -v 7z || command -v 7zz)
+if [ -z "$SETE_ZIP" ]; then
+    kdialog --error $"Não foi encontrado o 7-Zip (comandos 7z ou 7zz).
+
+Instale o pacote p7zip-full ou 7zip." --title $"Instalador não oficial do PjeCalc"
+    rm -Rf "$HOME/.pjecalc-instalando/"
+    exit 1
+fi
+
+"$SETE_ZIP" x pjecalc.exe
 
 rm pjecalc.exe
 
@@ -111,5 +124,8 @@ podem ser ignoradas.
 " --title $"Instalação concluída."
 
 else
-    kdialog --msgbox $"A instalação não foi cancelada." --title $"Instalador não oficial do PjeCalc"
+    kdialog --msgbox $"A instalação não foi concluída.
+
+Confira se o arquivo selecionado é o instalador
+do PjeCalc para Windows." --title $"Instalador não oficial do PjeCalc"
 fi
