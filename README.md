@@ -15,7 +15,7 @@ Depois de instalado, o pacote acrescenta dois itens ao menu de aplicativos, na c
 - **Azul Zulu 8 (JDK), no pacote `.deb` baixado do site da Azul.** O instalador depende do pacote `zulu-8` e procura o Java em `/usr/lib/jvm/zulu-8-amd64`.
 - No **Debian**, o repositório `contrib` habilitado. No **Ubuntu**, o repositório `multiverse`. Neles está o pacote das fontes da Microsoft (`ttf-mscorefonts-installer`), de que o PJe-Calc precisa para exibir os relatórios corretamente.
 
-As demais dependências são instaladas automaticamente pelo `apt`: `p7zip-full` (ou `7zip`), `kdialog`, `curl`, `fontconfig` e `ttf-mscorefonts-installer`.
+As demais dependências são instaladas automaticamente pelo `apt`: `p7zip-full` (ou `7zip`), `zenity`, `curl`, `fontconfig` e `ttf-mscorefonts-installer`.
 
 > **Atenção:** o pacote `zulu8-jdk` do repositório APT da Azul **não serve**. Ele tem outro nome e instala o Java em outra pasta (`/usr/lib/jvm/zulu8-ca-amd64`), de modo que o PJe-Calc não o encontra. Use o `.deb` avulso, conforme o passo 1 abaixo.
 
@@ -83,7 +83,7 @@ Os cálculos ficam na pasta oculta `~/PjeCalc/.dados`. Para fazer uma cópia de 
 
 ### Remover o PJe-Calc
 
-Abra **Instalar ou remover o PjeCalc**, escolha **REMOVER o PjeCalc!** e confirme. **Isso apaga também todos os cálculos salvos.**
+Abra **Instalar ou remover o PjeCalc**, escolha **REMOVER o PjeCalc** e confirme. **Isso apaga também todos os cálculos salvos.**
 
 Para remover o próprio instalador:
 
@@ -95,7 +95,7 @@ Remover o instalador não apaga a pasta `~/PjeCalc`.
 
 ## O que o instalador faz
 
-1. Fecha o PJe-Calc, se estiver aberto.
+1. Depois que o `.exe` é selecionado, fecha o PJe-Calc, se estiver aberto.
 2. Extrai o conteúdo do `.exe` com o 7-Zip numa pasta temporária (`~/.pjecalc-instalando`).
 3. Descarta o Java e o navegador que vêm embutidos no instalador do Windows.
 4. Copia o programa para `~/PjeCalc`.

@@ -1,47 +1,65 @@
 #!/bin/bash
 
+TITULO="Instalador não oficial do PjeCalc"
+
+# Janelas de diálogo (zenity)
+aviso() {   # aviso TEXTO [TÍTULO]
+    zenity --info --no-markup --width=420 --title="${2:-$TITULO}" --text="$1"
+}
+erro() {    # erro TEXTO
+    zenity --error --no-markup --width=420 --title="$TITULO" --text="$1"
+}
+confirma() {    # confirma TEXTO BOTÃO-SIM BOTÃO-NÃO; retorna 0 só se o usuário clicar em BOTÃO-SIM
+    zenity --question --no-markup --width=420 --title="$TITULO" --text="$1" \
+        --ok-label="$2" --cancel-label="$3" --default-cancel
+}
+
 
 if [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
 
-    kdialog --warningcontinuecancel $"O PjeCalc já está instalado.
+    ESCOLHA=$(zenity --question --no-markup --width=420 --title="$TITULO" \
+        --text="O PjeCalc já está instalado.
 
-Deseja reinstalar/atualizar o PjeCalc ou removê-lo?
-"  --continue-label $"Reinstalar ou atualizar o PjeCalc" --cancel-label $"REMOVER o PjeCalc!" --title $"Instalador não oficial do PjeCalc"
+Deseja reinstalar ou atualizar o PjeCalc, ou removê-lo?" \
+        --ok-label="Reinstalar ou atualizar o PjeCalc" --cancel-label="Sair" \
+        --extra-button="REMOVER o PjeCalc")
+    RESPOSTA=$?
 
-    if [ "$?" = 1 ]; then
-        
-            kdialog --warningcontinuecancel $"Confirma que deseja REMOVER o PjeCalc
-e os dados presentes no mesmo?
-            
-            " --continue-label $"Manter o PjeCalc instalado" --cancel-label $"Confirmo, REMOVA o PjeCalc!" --title $"Instalador não oficial do PjeCalc"
-            if [ "$?" = 1 ]; then
-                rm -R "$HOME/PjeCalc"
-                kdialog --msgbox $"PjeCalc removido!
+    if [ "$ESCOLHA" = "REMOVER o PjeCalc" ]; then
 
-" --title $"Instalador não oficial do PjeCalc"
-            fi
-            exit 0
+        if confirma "Confirma que deseja REMOVER o PjeCalc e todos os cálculos salvos nele?" \
+            "Confirmo, REMOVA o PjeCalc!" "Manter o PjeCalc instalado"; then
+            rm -R "$HOME/PjeCalc"
+            aviso "PjeCalc removido!"
+        fi
+        exit 0
+    fi
+
+    if [ "$RESPOSTA" != 0 ]; then
+        exit 0
     fi
 
 fi
 
 
-kdialog --warningcontinuecancel $"Esse é um instalador não oficial para o programa PjeCalc.
+zenity --question --no-markup --width=420 --title="$TITULO" --ok-label="Continuar" --cancel-label="Cancelar" \
+    --text="Este é um instalador não oficial para o programa PjeCalc.
 
-O PjeCalc, oficialmente, possui instalador apenas para Windows, porém, é um
-programa feito em java e funciona no Linux.
+Oficialmente, o PjeCalc só tem instalador para Windows, mas ele é um programa feito em Java e funciona no Linux.
 
-Para prosseguir, faça o download do PjeCalc para Windows e pressione 'Continuar'.
+Para prosseguir, faça o download do PjeCalc para Windows e clique em 'Continuar'.
 
-
-
-Na tela a seguir selecione o arquivo .exe do PjeCalc.
-Pode utilizar tanto a versão de 32 quanto a 64 bits.
-
-" --title $"Instalador não oficial do PjeCalc"
+Na tela seguinte, selecione o arquivo .exe do PjeCalc. Serve tanto a versão de 32 quanto a de 64 bits."
 
 if [ "$?" != 0 ]; then
-	exit 0
+    exit 0
+fi
+
+ARQUIVO_EXE=$(zenity --file-selection --title="$TITULO" --filename="$HOME/" \
+    --file-filter="Instalador do PjeCalc (.exe) | *.exe *.EXE")
+
+if [ -z "$ARQUIVO_EXE" ]; then
+    exit 0
 fi
 
 # Fecha o PjeCalc se ele estiver aberto
@@ -54,7 +72,7 @@ rm -Rf "$HOME/.pjecalc-instalando/"
 
 mkdir -p ~/.pjecalc-instalando
 
-cp -f "$(kdialog --getopenfilename "$HOME" ".exe (*.exe)"  --title $"Instalador não oficial do PjeCalc")" "$HOME/.pjecalc-instalando/pjecalc.exe"
+cp -f "$ARQUIVO_EXE" "$HOME/.pjecalc-instalando/pjecalc.exe"
 
 if ! [ -e "$HOME/.pjecalc-instalando/pjecalc.exe" ]; then
     exit 0
@@ -66,9 +84,9 @@ cd "$HOME/.pjecalc-instalando/" || exit 1
 # O pacote p7zip-full fornece o comando 7z; em algumas versões, o pacote 7zip fornece só o 7zz
 SETE_ZIP=$(command -v 7z || command -v 7zz)
 if [ -z "$SETE_ZIP" ]; then
-    kdialog --error $"Não foi encontrado o 7-Zip (comandos 7z ou 7zz).
+    erro "Não foi encontrado o 7-Zip (comandos 7z ou 7zz).
 
-Instale o pacote p7zip-full ou 7zip." --title $"Instalador não oficial do PjeCalc"
+Instale o pacote p7zip-full ou 7zip."
     rm -Rf "$HOME/.pjecalc-instalando/"
     exit 1
 fi
@@ -85,20 +103,20 @@ mkdir -p ~/PjeCalc
 cp -Rf pjecalc-*/* "$HOME/PjeCalc"
 
 if [ -e "$HOME/PjeCalc/.dados" ]; then
-    kdialog --warningcontinuecancel $"Detectei que já existe uma base de dados do PjeCalc nesse computador,
-    deseja manter os dados atuais ou efetuar uma instalação limpa?
-    
-    " --continue-label $"MANTER MEUS DADOS" --cancel-label $"APAGAR MEUS DADOS" --title $"Instalador não oficial do PjeCalc"
 
-    if [ "$?" = 1 ]; then
-        
-            kdialog --warningcontinuecancel $"Confirma que deseja apagar os dados preenchidos no PjeCalc?
-            
-            " --continue-label $"Não apague os dados" --cancel-label $"Confirmo, apague os dados!" --title $"Instalador não oficial do PjeCalc"
-            if [ "$?" = 1 ]; then
-                rm -R "$HOME/PjeCalc/.dados"
-                cp -Rf pjecalc-*/.dados "$HOME/PjeCalc/.dados"
-            fi
+    zenity --question --no-markup --width=420 --title="$TITULO" \
+        --text="Já existe uma base de dados do PjeCalc neste computador.
+
+Deseja manter os dados atuais ou fazer uma instalação limpa?" \
+        --ok-label="MANTER MEUS DADOS" --cancel-label="APAGAR MEUS DADOS"
+
+    if [ "$?" != 0 ]; then
+
+        if confirma "Confirma que deseja apagar os dados preenchidos no PjeCalc?" \
+            "Confirmo, apague os dados!" "Não apague os dados"; then
+            rm -R "$HOME/PjeCalc/.dados"
+            cp -Rf pjecalc-*/.dados "$HOME/PjeCalc/.dados"
+        fi
     fi
 
 else
@@ -111,21 +129,14 @@ rm -Rf "$HOME/.pjecalc-instalando/"
 
 if [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
 
-    kdialog --msgbox $"O PjeCalc foi instalado na pasta $HOME/PjeCalc
-se você apagar ou modificar o nome dessa pasta
-o PjeCalc não irá funcionar.
+    aviso "O PjeCalc foi instalado na pasta $HOME/PjeCalc. Se você apagar ou renomear essa pasta, o PjeCalc não irá funcionar.
 
-Para utilizar o PjeCalc, abra-o no menu do
-sistema na categoria 'Escritório'.
+Para utilizar o PjeCalc, abra-o no menu do sistema, na categoria 'Escritório'.
 
-As mensagens de erro de FONTCONFIG
-podem ser ignoradas.
-
-" --title $"Instalação concluída."
+As mensagens de erro de FONTCONFIG podem ser ignoradas." "Instalação concluída"
 
 else
-    kdialog --msgbox $"A instalação não foi concluída.
+    erro "A instalação não foi concluída.
 
-Confira se o arquivo selecionado é o instalador
-do PjeCalc para Windows." --title $"Instalador não oficial do PjeCalc"
+Confira se o arquivo selecionado é o instalador do PjeCalc para Windows."
 fi

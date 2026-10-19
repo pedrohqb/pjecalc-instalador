@@ -6,19 +6,19 @@ LIMITE_ESPERA=120
 
 if ! [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
 
-    kdialog --msgbox $"O PjeCalc ainda não está instalado.
+    zenity --info --no-markup --width=420 --title="PjeCalc não instalado!" \
+        --text="O PjeCalc ainda não está instalado.
 
-Para instalá-lo, abra no menu do sistema
-'Instalar ou remover o PjeCalc'." --title $"PjeCalc não instalado!"
+Para instalá-lo, abra no menu do sistema 'Instalar ou remover o PjeCalc'."
     exit 1
 fi
 
 if ! [ -x "$JAVA" ]; then
 
-    kdialog --error $"Não foi encontrado o Java do Zulu 8 em
-$JAVA.
+    zenity --error --no-markup --width=420 --title="Java não encontrado!" \
+        --text="Não foi encontrado o Java do Zulu 8 em $JAVA.
 
-Instale o pacote zulu-8 baixado do site da Azul." --title $"Java não encontrado!"
+Instale o pacote zulu-8 baixado do site da Azul."
     exit 1
 fi
 
@@ -40,8 +40,8 @@ while [ $ESPERA -lt $LIMITE_ESPERA ]; do
     ESPERA=$((ESPERA + 1))
 done
 
-kdialog --error $"O PjeCalc não respondeu após $LIMITE_ESPERA segundos.
+zenity --error --no-markup --width=420 --title="PjeCalc não abriu!" \
+    --text="O PjeCalc não respondeu após $LIMITE_ESPERA segundos.
 
-Para ver as mensagens de erro, rode 'pjecalc-abrir' no terminal.
-Confira também se outro programa está usando a porta 9257." --title $"PjeCalc não abriu!"
+Para ver as mensagens de erro, rode 'pjecalc-abrir' no terminal. Confira também se outro programa está usando a porta 9257."
 exit 1

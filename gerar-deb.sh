@@ -41,7 +41,7 @@ Version: $PKGVER-$PKGREL
 Section: utils
 Priority: optional
 Architecture: $ARCH
-Depends: zulu-8, p7zip-full | 7zip, kdialog, curl, fontconfig, ttf-mscorefonts-installer
+Depends: zulu-8, p7zip-full | 7zip, zenity, curl, fontconfig, ttf-mscorefonts-installer
 Maintainer: $MAINTAINER
 Description: $DESCRIPTION
 EOF
