@@ -1,30 +1,47 @@
 #!/bin/bash
 
+JAVA="/usr/lib/jvm/zulu-8-amd64/bin/java"
+# Tempo máximo, em segundos, de espera pelo servidor do PjeCalc
+LIMITE_ESPERA=120
 
 if ! [ -e "$HOME/PjeCalc/bin/pjecalc.jar" ]; then
 
-    kdialog --msgbox $"O PjeCalc ainda não está instalado.
-    
-    " --title "PjeOffice não instaldo!"
+    zenity --info --no-markup --width=420 --title="PjeCalc não instalado!" \
+        --text="O PjeCalc ainda não está instalado.
+
+Para instalá-lo, abra no menu do sistema 'Instalar ou remover o PjeCalc'."
     exit 1
 fi
 
-cd "$HOME/PjeCalc/"
+if ! [ -x "$JAVA" ]; then
+
+    zenity --error --no-markup --width=420 --title="Java não encontrado!" \
+        --text="Não foi encontrado o Java do Zulu 8 em $JAVA.
+
+Instale o pacote zulu-8 baixado do site da Azul."
+    exit 1
+fi
+
+cd "$HOME/PjeCalc/" || exit 1
 
 if [ "$(ps -aux | grep -i pjecalc.jar | grep java)" = "" ]; then
-    echo "sim"
     export FONTCONFIG_FILE="/etc/pjecalc-fonts.conf"
-	exec /usr/lib/jvm/zulu-8-amd64/bin/java -Duser.timezone=GMT-3 -Dfile.encoding=ISO-8859-1 -Dseguranca.pjecalc.tokenServicos=pW4jZ4g9VM5MCy6FnB5pEfQe -Xms1024m -Xmx2048m -XX:MaxPermSize=512m -jar bin/pjecalc.jar &
+    exec "$JAVA" -Duser.timezone=GMT-3 -Dfile.encoding=ISO-8859-1 -Dseguranca.pjecalc.tokenServicos=pW4jZ4g9VM5MCy6FnB5pEfQe -Xms1024m -Xmx2048m -jar bin/pjecalc.jar &
 fi
 
 
-ESPERAR=1
-while [  $ESPERAR = 1 ]; do
+ESPERA=0
+while [ $ESPERA -lt $LIMITE_ESPERA ]; do
 
-    curl http://localhost:9257/pjecalc
-    if [ "$?" = 0 ]; then
-        ESPERAR=0
+    if curl -s -o /dev/null http://localhost:9257/pjecalc; then
         exec xdg-open http://localhost:9257/pjecalc/pages/principal.jsf
     fi
     sleep 1
+    ESPERA=$((ESPERA + 1))
 done
+
+zenity --error --no-markup --width=420 --title="PjeCalc não abriu!" \
+    --text="O PjeCalc não respondeu após $LIMITE_ESPERA segundos.
+
+Para ver as mensagens de erro, rode 'pjecalc-abrir' no terminal. Confira também se outro programa está usando a porta 9257."
+exit 1
